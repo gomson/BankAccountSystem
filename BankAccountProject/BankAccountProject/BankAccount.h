@@ -25,7 +25,8 @@ public:
 	BankAccount(std::string userName, int accNum, double balance, int socialNum);
 	//overloaded operators
 	BankAccount &operator+=(double &amt);
-	BankAccount &operator-=(double &amt);	//data save
+	BankAccount &operator-=(double &amt);	
+	//data save
 	std::string saveUser();
 	int saveAccNum();
 	double saveBalance();
