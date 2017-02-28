@@ -16,12 +16,16 @@ private:
 public:
 	//Functions
 	void showAcctInfo();
-
+	void AcctMenu(std::vector <BankAccount> &usersList, int accessedAcct);
+	void Deposit(double amt);
+	void Withdraw(double amt);
+	int findAcct(std::vector <BankAccount> &usersList, int accNum);
 	//constructors
 	BankAccount();
 	BankAccount(std::string userName, int accNum, double balance, int socialNum);
-
-	//data save
+	//overloaded operators
+	BankAccount &operator+=(double &amt);
+	BankAccount &operator-=(double &amt);	//data save
 	std::string saveUser();
 	int saveAccNum();
 	double saveBalance();

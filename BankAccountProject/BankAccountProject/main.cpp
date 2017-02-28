@@ -21,7 +21,7 @@ int main()
 		char menuInput = 'z';
 		std::cout << "\nWhat would you like to do? ";
 		std::cin >> menuInput;
-
+		BankAccount access;
 		switch ((toupper(menuInput)))
 		{
 		case 'A':
@@ -45,6 +45,16 @@ int main()
 			for (it = usersList.begin(); it < usersList.end(); it++) //loop through and showacctinfo using iterator 
 				it->showAcctInfo();
 			break;
+		case 'C':
+			std::cout << "Enter Account Number: "; std::cin >> accNum;
+			if (access.findAcct(usersList, accNum) != -1)
+			{
+				int accessedAcct = access.findAcct(usersList, accNum);
+				access.AcctMenu(usersList,accessedAcct);//access new menu for withdraw/add to accessed account
+			}
+			else
+				std::cout << "Account not found.\n";
+			break;
 		case 'Q':
 			isDone = true;
 			break;
@@ -54,14 +64,4 @@ int main()
 	saveData(usersList);
 	std::cout << "Exiting Application... GoodBye!\n";
 	return 0;
-}
-void printMenu()
-{
-	std::cout << " _______________________\n";
-	std::cout << "|*     BANK MENU     *  |\n";
-	std::cout << "|-----------------------|\n";
-	std::cout << "| A. Add Account        |\n";
-	std::cout << "| B. List Accounts      |\n";
-	std::cout << "| Q. Save and Quit      |\n";
-	std::cout << "|_______________________|\n";
 }

@@ -8,7 +8,7 @@
 
 //Constructor
 BankAccount::BankAccount()
-	: m_name("BOB"), m_acctNum(1234), m_balance(0), m_socialNum(123)
+	: m_name(""), m_acctNum(1234), m_balance(0), m_socialNum(123)
 {
 
 }
@@ -84,6 +84,18 @@ void loadData(std::vector <BankAccount> &usersList, std::string &userName, int &
 	}
 }
 
+BankAccount & BankAccount::operator+=(double & amt)
+{
+	this->m_balance = this->m_balance + amt;
+	return *this;
+}
+
+BankAccount & BankAccount::operator-=(double & amt)
+{
+	this->m_balance = this->m_balance - amt;
+	return *this;
+}
+
 std::string BankAccount::saveUser()
 {
 	return m_name;
@@ -115,6 +127,74 @@ void BankAccount::showAcctInfo()
 	cout << "______________________________" << std::endl;
 }
 
+int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum)
+{
+	int count = 0;
+	for (auto p = usersList.begin(); p != usersList.end(); p++)
+	{
+		if (p->m_acctNum == accNum)
+		{
+			std::cout << "Account accessed." << std::endl;
+			return count;
+		}
+		count++;
+	}
+	
+	return -1;
+}
+
+void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcct)
+{
+	BankAccount access;
+	bool newMenu = true;
+	while (newMenu == true)
+	{
+		std::cout << "Welcome " << usersList.at(accessedAcct).m_name << ", Please select an option: \n";
+		std::cout << "1. Deposit to Account\n";
+		std::cout << "2. Withdraw from Account\n";
+		//show account info #3
+		std::cout << "Q. Return to Main Menu\n";
+		char newMenuInput = '0';
+		double amt;
+		std::cin >> newMenuInput;
+		switch (toupper(newMenuInput)) 
+		{
+		case '1':
+			std::cout << "Please enter the amount you would like to deposit: "; std::cin >> amt;
+			usersList.at(accessedAcct).Deposit(amt);
+			break;
+		case '2':
+			if (usersList.at(accessedAcct).m_balance != 0)
+			{
+				std::cout << "Please enter the amount you would like to withdraw: "; std::cin >> amt;
+				if (amt <= usersList.at(accessedAcct).m_balance) // if the amt is less than or equal to the balance 
+					usersList.at(accessedAcct).Withdraw(amt); //then withdraw the amt
+				else
+					std::cout << "You entered an amount larger than your current balance.\n";
+			}
+			else
+				std::cout << "No balance on account!\a\n";
+			break;
+		case 'Q':
+			newMenu = false;
+			break;
+		}
+	}
+
+}
+
+void BankAccount::Deposit(double amt)
+{
+	this->m_balance += amt;
+	std::cout << "New balance: " << m_balance << std::endl;
+}
+
+void BankAccount::Withdraw(double amt)
+{
+	this->m_balance -= amt;
+	std::cout << "New balance: " << m_balance << std::endl;
+}
+
 //Password
 void passwordFunction()
 {
@@ -143,3 +223,14 @@ void passwordFunction()
 	std::cout << "Correct password. Logged in as administrator.\n\n" << std::endl;
 }
 
+void printMenu()
+{
+	std::cout << " _______________________\n";
+	std::cout << "|*     MAIN MENU     *  |\n";
+	std::cout << "|-----------------------|\n";
+	std::cout << "| A. Add Account        |\n";
+	std::cout << "| B. List Accounts      |\n";
+	std::cout << "| C. Access Account	|\n";
+	std::cout << "| Q. Save and Quit      |\n";
+	std::cout << "|_______________________|\n";
+}
