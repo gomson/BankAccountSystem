@@ -1,12 +1,9 @@
 #include "BankAccount.h"
-#include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 
-// Class Functions //
-
-//Constructor
+//Default Constructor
 BankAccount::BankAccount()
 	: m_name(""), m_acctNum(1234), m_balance(0), m_socialNum(123)
 {
@@ -83,7 +80,21 @@ void loadData(std::vector <BankAccount> &usersList, std::string &userName, int &
 		std::cout << "File loaded! \n\n";
 	}
 }
+std::string BankAccount::saveUser()
+{return m_name;}
 
+double BankAccount::saveBalance()
+{return m_balance;}
+
+int BankAccount::saveAccNum()
+{return m_acctNum;}
+
+int BankAccount::saveSocial()
+{return m_socialNum;}
+
+//Unused overloaded operators
+
+/*
 BankAccount &BankAccount::operator+=(double & amt)
 {
 	this->m_balance = this->m_balance + amt;
@@ -95,25 +106,32 @@ BankAccount &BankAccount::operator-=(double & amt)
 	this->m_balance = this->m_balance - amt;
 	return *this;
 }
+*/
 
-std::string BankAccount::saveUser()
-{
-	return m_name;
-}
+// Class Functions //
 
-double BankAccount::saveBalance()
+void BankAccount::createAccount(std::vector<BankAccount>& usersList, std::string &userName, int &accNum, int &socialNum, double &balance)
 {
-	return m_balance;
-}
+	using std::string;
+	std::cin.ignore();
+	std::cout << "\n Please enter the user's full name: ";
+	getline(std::cin, userName);
+	do {
+		std::cout << "\n Enter the user's account number (4 Numbers): ";
+		std::cin >> accNum;
+		if (findAcct(usersList, accNum) != -1)
+			std::cout << "Incorrect account number! (Account # in use)\n";
+	} while (findAcct(usersList, accNum) != -1);
 
-int BankAccount::saveAccNum()
-{
-	return m_acctNum;
-}
-
-int BankAccount::saveSocial()
-{
-	return m_socialNum;
+	std::cout << "\n Enter the user's account balance: ";
+	std::cin >> balance;
+	std::cout << "\n Enter the user's social security number (first three numbers): ";
+	std::cin >> socialNum;
+	{
+		BankAccount newUser(userName, accNum, balance, socialNum);
+		usersList.push_back(newUser);
+		std::cout << "\n* Account Created *\n\n";
+	}
 }
 
 void BankAccount::showAcctInfo()
@@ -130,11 +148,10 @@ void BankAccount::showAcctInfo()
 int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum) //returns index of element in the vector
 {
 	int index = 0;
-	for (auto p = usersList.begin(); p != usersList.end(); p++)
+	for (auto p = usersList.begin(); p < usersList.end(); p++)
 	{
 		if (p->m_acctNum == accNum)
 		{
-			std::cout << "Account accessed." << std::endl; 
 			return index; //if account is at position 0 return count as 0
 		}
 		index++; //else increment
@@ -157,7 +174,6 @@ void BankAccount::Withdraw(double amt)
 
 void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcct)
 {
-	BankAccount access;
 	bool newMenu = true;
 	while (newMenu == true)
 	{
@@ -175,7 +191,7 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 		{
 		case '1':
 			std::cout << "Please enter the amount you would like to deposit: "; std::cin >> amt;
-			usersList.at(accessedAcct).Deposit(amt);
+			usersList.at(accessedAcct).Deposit(amt); //this actually worked
 			break;
 		case '2':
 			if (usersList.at(accessedAcct).m_balance != 0)
@@ -193,15 +209,27 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 			usersList.at(accessedAcct).showAcctInfo();
 			break;
 		case 'Q':
-			newMenu = false;
+			newMenu = false;//exit
 			break;
 		}
 	}
 
 }
 
+// Other functions //
 
-//Password
+void printMenu()
+{
+	std::cout << " _______________________\n";
+	std::cout << "|*     MAIN MENU     *  |\n";
+	std::cout << "|-----------------------|\n";
+	std::cout << "| A. Add Account        |\n";
+	std::cout << "| B. List Accounts      |\n";
+	std::cout << "| C. Access Account	|\n";
+	std::cout << "| Q. Save and Quit      |\n";
+	std::cout << "|_______________________|\n";
+}
+
 void passwordFunction()
 {
 	int password = 54321;
@@ -228,4 +256,3 @@ void passwordFunction()
 	}
 	std::cout << "Correct password. Logged in as administrator.\n\n" << std::endl;
 }
-

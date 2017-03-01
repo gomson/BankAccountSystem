@@ -7,16 +7,16 @@
 
 int main()
 {
-	passwordFunction(); //password input 1234
+	passwordFunction(); //password is 1234
 
-	//Instantiations
+	// Variables and array declaration
 	std::string userName;
 	int accNum, socialNum;
 	double balance;
 	static std::vector <BankAccount> usersList;
 	static std::vector <BankAccount>::iterator it;
 
-	loadData(usersList, userName, accNum, socialNum, balance); //load data from file function
+	loadData(usersList, userName, accNum, socialNum, balance); 
 	bool isDone = false;
 	while (isDone == false) // main while loop
 	{
@@ -28,20 +28,8 @@ int main()
 		switch ((toupper(menuInput)))
 		{
 		case 'A':
-			std::cin.ignore();//ok
-			std::cout << "\n Please enter the user's full name: ";
-			std::getline(std::cin, userName);
-			std::cout << "\n Enter the user's account number (4 Numbers): ";
-			std::cin >> accNum;
-			std::cout << "\n Enter the user's account balance: ";
-			std::cin >> balance;
-			std::cout << "\n Enter the user's social security number (first three numbers): ";
-			std::cin >> socialNum;
-			{
-				BankAccount newUser(userName, accNum, balance, socialNum);
-				usersList.push_back(newUser);
-				std::cout << "\n* Account Created *\n\n";
-			}
+			access.createAccount(usersList, userName, accNum, socialNum, balance);
+			
 			break;
 		case 'B':
 			std::cout << "\nACCOUNT LIST\n";
@@ -52,6 +40,7 @@ int main()
 			std::cout << "Enter Account Number: "; std::cin >> accNum;
 			if (access.findAcct(usersList, accNum) != -1)
 			{
+				std::cout << "Account accessed." << std::endl;
 				int accessedAcct = access.findAcct(usersList, accNum); //place index of element from vector into variable
 				access.AcctMenu(usersList, accessedAcct); //access new menu for withdraw/add to accessed account
 			}
@@ -64,19 +53,8 @@ int main()
 		}
 
 	}
-	saveData(usersList);
-	std::cout << "Exiting Application... GoodBye!\n";
+	saveData(usersList); //save data on exit to file
+	std::cout << "\n Exiting Application... Have a good day! \n";
 	return 0;
 }
 
-void printMenu()
-{
-	std::cout << " _______________________\n";
-	std::cout << "|*     MAIN MENU     *  |\n";
-	std::cout << "|-----------------------|\n";
-	std::cout << "| A. Add Account        |\n";
-	std::cout << "| B. List Accounts      |\n";
-	std::cout << "| C. Access Account	|\n";
-	std::cout << "| Q. Save and Quit      |\n";
-	std::cout << "|_______________________|\n";
-}

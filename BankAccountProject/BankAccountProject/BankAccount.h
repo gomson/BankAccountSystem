@@ -15,6 +15,7 @@ private:
 	int m_socialNum;
 public:
 	//Functions
+	void createAccount(std::vector<BankAccount>& usersList, std::string &userName, int &accNum, int &socialNum, double &balance);
 	void showAcctInfo();
 	void AcctMenu(std::vector <BankAccount> &usersList, int accessedAcct);
 	void Deposit(double amt);
