@@ -8,14 +8,17 @@
 int main()
 {
 	passwordFunction(); //password input 1234
+
+	//Instantiations
 	std::string userName;
 	int accNum, socialNum;
 	double balance;
 	static std::vector <BankAccount> usersList;
 	static std::vector <BankAccount>::iterator it;
-	loadData(usersList, userName, accNum, socialNum, balance);
+
+	loadData(usersList, userName, accNum, socialNum, balance); //load data from file function
 	bool isDone = false;
-	while (isDone == false)
+	while (isDone == false) // main while loop
 	{
 		printMenu();
 		char menuInput = 'z';
@@ -25,7 +28,7 @@ int main()
 		switch ((toupper(menuInput)))
 		{
 		case 'A':
-			std::cin.ignore();
+			std::cin.ignore();//ok
 			std::cout << "\n Please enter the user's full name: ";
 			std::getline(std::cin, userName);
 			std::cout << "\n Enter the user's account number (4 Numbers): ";
@@ -49,7 +52,7 @@ int main()
 			std::cout << "Enter Account Number: "; std::cin >> accNum;
 			if (access.findAcct(usersList, accNum) != -1)
 			{
-				int accessedAcct = access.findAcct(usersList, accNum);
+				int accessedAcct = access.findAcct(usersList, accNum); //place index of element from vector into variable
 				access.AcctMenu(usersList, accessedAcct); //access new menu for withdraw/add to accessed account
 			}
 			else
@@ -64,4 +67,16 @@ int main()
 	saveData(usersList);
 	std::cout << "Exiting Application... GoodBye!\n";
 	return 0;
+}
+
+void printMenu()
+{
+	std::cout << " _______________________\n";
+	std::cout << "|*     MAIN MENU     *  |\n";
+	std::cout << "|-----------------------|\n";
+	std::cout << "| A. Add Account        |\n";
+	std::cout << "| B. List Accounts      |\n";
+	std::cout << "| C. Access Account	|\n";
+	std::cout << "| Q. Save and Quit      |\n";
+	std::cout << "|_______________________|\n";
 }

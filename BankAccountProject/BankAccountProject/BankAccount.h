@@ -25,15 +25,17 @@ public:
 	BankAccount(std::string userName, int accNum, double balance, int socialNum);
 	//overloaded operators
 	BankAccount &operator+=(double &amt);
-	BankAccount &operator-=(double &amt);	
-	//data save
+	BankAccount &operator-=(double &amt);
+	//data save 
 	std::string saveUser();
 	int saveAccNum();
 	double saveBalance();
 	int saveSocial();
 };
+//other functions
 void passwordFunction();
 void printMenu();
+//save/load from file functions
 void saveData(std::vector <BankAccount> &usersList);
 void loadData(std::vector <BankAccount> &usersList, std::string &userName, int &accNum, int &socialNum, double &balance);
 bool is_file_exist(std::string fileName);

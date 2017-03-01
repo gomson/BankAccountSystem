@@ -127,19 +127,19 @@ void BankAccount::showAcctInfo()
 	cout << "______________________________" << std::endl;
 }
 
-int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum)
+int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum) //returns index of element in the vector
 {
-	int count = 0;
+	int index = 0;
 	for (auto p = usersList.begin(); p != usersList.end(); p++)
 	{
 		if (p->m_acctNum == accNum)
 		{
-			std::cout << "Account accessed." << std::endl;
-			return count;
+			std::cout << "Account accessed." << std::endl; 
+			return index; //if account is at position 0 return count as 0
 		}
-		count++;
+		index++; //else increment
 	}
-
+	
 	return -1;
 }
 
@@ -229,14 +229,3 @@ void passwordFunction()
 	std::cout << "Correct password. Logged in as administrator.\n\n" << std::endl;
 }
 
-void printMenu()
-{
-	std::cout << " _______________________\n";
-	std::cout << "|*     MAIN MENU     *  |\n";
-	std::cout << "|-----------------------|\n";
-	std::cout << "| A. Add Account        |\n";
-	std::cout << "| B. List Accounts      |\n";
-	std::cout << "| C. Access Account	|\n";
-	std::cout << "| Q. Save and Quit      |\n";
-	std::cout << "|_______________________|\n";
-}
