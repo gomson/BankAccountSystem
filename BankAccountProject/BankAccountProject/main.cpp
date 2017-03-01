@@ -50,7 +50,7 @@ int main()
 			if (access.findAcct(usersList, accNum) != -1)
 			{
 				int accessedAcct = access.findAcct(usersList, accNum);
-				access.AcctMenu(usersList,accessedAcct);//access new menu for withdraw/add to accessed account
+				access.AcctMenu(usersList, accessedAcct); //access new menu for withdraw/add to accessed account
 			}
 			else
 				std::cout << "Account not found.\n";
