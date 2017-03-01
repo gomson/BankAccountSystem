@@ -84,13 +84,13 @@ void loadData(std::vector <BankAccount> &usersList, std::string &userName, int &
 	}
 }
 
-BankAccount & BankAccount::operator+=(double & amt)
+BankAccount &BankAccount::operator+=(double & amt)
 {
 	this->m_balance = this->m_balance + amt;
 	return *this;
 }
 
-BankAccount & BankAccount::operator-=(double & amt)
+BankAccount &BankAccount::operator-=(double & amt)
 {
 	this->m_balance = this->m_balance - amt;
 	return *this;
@@ -139,8 +139,20 @@ int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum)
 		}
 		count++;
 	}
-	
+
 	return -1;
+}
+
+void BankAccount::Deposit(double amt)
+{
+	this->m_balance += amt; //didnt need to use overloading?
+	std::cout << "New balance updated: $" << m_balance << std::endl;
+}
+
+void BankAccount::Withdraw(double amt)
+{
+	this->m_balance -= amt;
+	std::cout << "New balance updated: $" << m_balance << std::endl;
 }
 
 void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcct)
@@ -149,15 +161,17 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 	bool newMenu = true;
 	while (newMenu == true)
 	{
+		std::cout << "__________________________________________\n";
 		std::cout << "Welcome " << usersList.at(accessedAcct).m_name << ", Please select an option: \n";
 		std::cout << "1. Deposit to Account\n";
 		std::cout << "2. Withdraw from Account\n";
-		//show account info #3
+		std::cout << "3. Show my account info\n";
+		//transfer balance
 		std::cout << "Q. Return to Main Menu\n";
 		char newMenuInput = '0';
 		double amt;
 		std::cin >> newMenuInput;
-		switch (toupper(newMenuInput)) 
+		switch (toupper(newMenuInput))
 		{
 		case '1':
 			std::cout << "Please enter the amount you would like to deposit: "; std::cin >> amt;
@@ -175,6 +189,9 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 			else
 				std::cout << "No balance on account!\a\n";
 			break;
+		case '3':
+			usersList.at(accessedAcct).showAcctInfo();
+			break;
 		case 'Q':
 			newMenu = false;
 			break;
@@ -183,17 +200,6 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 
 }
 
-void BankAccount::Deposit(double amt)
-{
-	this->m_balance += amt;
-	std::cout << "New balance: " << m_balance << std::endl;
-}
-
-void BankAccount::Withdraw(double amt)
-{
-	this->m_balance -= amt;
-	std::cout << "New balance: " << m_balance << std::endl;
-}
 
 //Password
 void passwordFunction()
