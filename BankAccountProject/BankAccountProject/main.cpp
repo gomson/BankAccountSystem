@@ -4,10 +4,8 @@
 #include <vector>
 #include <fstream>
 
-
 int main()
 {
-	passwordFunction(); //password is 1234
 
 	// Variables and array declaration
 	std::string userName;
@@ -18,6 +16,7 @@ int main()
 
 	loadData(usersList, userName, accNum, socialNum, balance); 
 	bool isDone = false;
+	bool admin = false;
 	while (isDone == false) // main while loop
 	{
 		printMenu();
@@ -32,12 +31,14 @@ int main()
 			
 			break;
 		case 'B':
+			system("cls"); 
+			if (admin == false) { passwordFunction(admin); }//password is 1234
 			std::cout << "\nACCOUNT LIST\n";
 			for (it = usersList.begin(); it < usersList.end(); it++) //loop through and showacctinfo using iterator 
 				it->showAcctInfo();
 			break;
 		case 'C':
-			std::cout << "Enter Account Number: "; std::cin >> accNum;
+			system("cls"); std::cout << "Enter Account Number: "; std::cin >> accNum;
 			if (access.findAcct(usersList, accNum) != -1)
 			{
 				std::cout << "Account accessed." << std::endl;
@@ -48,6 +49,7 @@ int main()
 				std::cout << "Account not found.\n";
 			break;
 		case 'Q':
+			system("cls");
 			isDone = true;
 			break;
 		}

@@ -34,7 +34,7 @@ public:
 	int saveSocial();
 };
 //other functions
-void passwordFunction();
+void passwordFunction(bool &admin);
 void printMenu();
 //save/load from file functions
 void saveData(std::vector <BankAccount> &usersList);

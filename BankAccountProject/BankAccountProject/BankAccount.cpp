@@ -112,6 +112,7 @@ BankAccount &BankAccount::operator-=(double & amt)
 
 void BankAccount::createAccount(std::vector<BankAccount>& usersList, std::string &userName, int &accNum, int &socialNum, double &balance)
 {
+	system("cls");
 	using std::string;
 	std::cin.ignore();
 	std::cout << "\n Please enter the user's full name: ";
@@ -224,17 +225,17 @@ void printMenu()
 	std::cout << "|*     MAIN MENU     *  |\n";
 	std::cout << "|-----------------------|\n";
 	std::cout << "| A. Add Account        |\n";
-	std::cout << "| B. List Accounts      |\n";
+	std::cout << "| B. List All Accounts  |\n";
 	std::cout << "| C. Access Account	|\n";
 	std::cout << "| Q. Save and Quit      |\n";
 	std::cout << "|_______________________|\n";
 }
 
-void passwordFunction()
+void passwordFunction(bool &admin)
 {
 	int password = 54321;
 	int passwordInc = 0;
-	std::cout << "Please input your 4 digit password: " << std::endl;
+	std::cout << "In order to view all user accounts, Please input your 4 digit admin password: " << std::endl;
 	while (password != 1234) //breaks out of password input loop 
 	{
 		std::cin >> password;
@@ -254,5 +255,6 @@ void passwordFunction()
 		if (passwordInc >= 3)
 			std::cout << "psst! The password is 1234! \n";
 	}
-	std::cout << "Correct password. Logged in as administrator.\n\n" << std::endl;
+	admin = true;
+	std::cout << "\nCorrect password. Logged in as Administrator\nDisplaying all accounts..\n" << std::endl;
 }
