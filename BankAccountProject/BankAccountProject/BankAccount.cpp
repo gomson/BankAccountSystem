@@ -163,7 +163,7 @@ int BankAccount::findAcct(std::vector <BankAccount> &usersList, int accNum) //re
 
 void BankAccount::Deposit(double amt)
 {
-	this->m_balance += amt; //didnt need to use overloading?
+	this->m_balance += amt; //didnt need to use overloading
 	std::cout << "New balance updated: $" << m_balance << std::endl;
 }
 

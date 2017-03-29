@@ -6,7 +6,6 @@
 
 int main()
 {
-
 	// Variables and array declaration
 	std::string userName;
 	int accNum, socialNum;
