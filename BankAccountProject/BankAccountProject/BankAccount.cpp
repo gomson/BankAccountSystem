@@ -201,7 +201,7 @@ void BankAccount::AcctMenu(std::vector <BankAccount> &usersList, int accessedAcc
 				if (amt <= usersList.at(accessedAcct).m_balance) // if the amt is less than or equal to the balance 
 					usersList.at(accessedAcct).Withdraw(amt); //then withdraw the amt
 				else
-					std::cout << "You entered an amount larger than your current balance.\n";
+					std::cout << "\n\aYou entered an amount larger than your current balance.\n";
 			}
 			else
 				std::cout << "No balance on account!\a\n";
